@@ -24,4 +24,6 @@ public class Category {
     @Size(min = 5, message = "Category name should be at least 5 characters")
     private String categoryName;
 
+
+
 }
