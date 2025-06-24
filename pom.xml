@@ -79,12 +79,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -100,6 +94,29 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!--  Uncomment the following dependency if you want to use MySQL as your database
+			  and comment out the H2 dependency above.
+		 <dependency>
+		 			<groupId>com.mysql</groupId>
+		 			<artifactId>mysql-connector-j</artifactId>
+		 			<scope>runtime</scope>
+		 </dependency>
+		 -->
+		<!--	Uncomment the following dependency if you want to use PostgreSQL as your database
+				and comment out the H2 dependency above.
+		 <dependency>
+		 			<groupId>org.postgresql</groupId>
+		 			<artifactId>postgresql</artifactId>
+		 			<scope>runtime</scope>
+		 </dependency>
+		 -->
 
 	</dependencies>
 
