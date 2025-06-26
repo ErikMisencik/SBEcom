@@ -107,7 +107,7 @@ This project uses **Postman** for testing REST endpoints.
    ./mvnw package  # using Maven for building the project
    ```
 3. The generated JAR file will be located in the `target` directory
-4. This JAR can be deployed on any server supporting Java for example AWS
+4. This JAR can be deployed on any server supporting Java for example AWS Elastic Beanstalk
 
  ---
 
