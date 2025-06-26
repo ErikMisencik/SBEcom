@@ -150,7 +150,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(productDTO, Product.class);
         productFromDB.setProductName(product.getProductName());
         productFromDB.setDescription(product.getDescription());
-        productFromDB.setQuantity(product.getQuantity());
+        productFromDB.setStockQuantity(product.getStockQuantity());
         productFromDB.setPrice(product.getPrice());
         productFromDB.setDiscount(product.getDiscount());
         productFromDB.setSpecialPrice(product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice()));

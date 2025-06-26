@@ -53,11 +53,11 @@ public class CartServiceImpl implements CartService {
             throw new APIExceptions("Product" + product.getProductName() + " already exists in the cart");
         }
 
-        if (product.getQuantity() == 0) {
+        if (product.getStockQuantity() == 0) {
             throw new APIExceptions("Product " + product.getProductName() + " is out of stock");
         }
 
-        if (product.getQuantity() < quantity) {
+        if (product.getStockQuantity() < quantity) {
             throw new APIExceptions("Product " + product.getProductName() + " is not available in sufficient quantity");
         }
 
@@ -69,7 +69,7 @@ public class CartServiceImpl implements CartService {
         newCartItem.setProductPrice(product.getSpecialPrice());
 
         cartItemRepository.save(newCartItem);
-        product.setQuantity(product.getQuantity()); // Update product quantity in stock but we do not reduce it here
+        product.setStockQuantity(product.getStockQuantity()); // Update product quantity in stock but we do not reduce it here
 
         cart.setTotalPrice(cart.getTotalPrice() + (product.getSpecialPrice() * quantity));
 
@@ -81,7 +81,7 @@ public class CartServiceImpl implements CartService {
 
         Stream<ProductDTO> productStream = cartItems.stream().map(item -> {
             ProductDTO map = modelMapper.map(item.getProduct(), ProductDTO.class);
-            map.setQuantity(item.getQuantity());
+            map.setStockQuantity(item.getQuantity());
             return map;
         });
 
@@ -112,9 +112,12 @@ public class CartServiceImpl implements CartService {
         List<CartDTO> cartDTOs = carts.stream()
                 .map(cart -> {
                     CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-                    List<ProductDTO> products = cart.getCartItems().stream()
-                            .map(p -> modelMapper.map(p.getProduct(), ProductDTO.class))
-                            .toList();
+
+                    List<ProductDTO> products = cart.getCartItems().stream().map(p -> {
+                        ProductDTO productDTO = modelMapper.map(p.getProduct(), ProductDTO.class);
+                        productDTO.setStockQuantity(p.getQuantity());
+                        return productDTO;
+                    }).toList();
                     cartDTO.setProducts(products);
                     return cartDTO;
                 }).toList();
@@ -135,7 +138,7 @@ public class CartServiceImpl implements CartService {
 
         Stream<ProductDTO> productStream = cartItems.stream().map(p -> {
             ProductDTO map = modelMapper.map(p.getProduct(), ProductDTO.class);
-            map.setQuantity(p.getQuantity());
+            map.setStockQuantity(p.getQuantity());
             return map;
         });
 
@@ -157,11 +160,11 @@ public class CartServiceImpl implements CartService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
 
-        if (product.getQuantity() == 0) {
+        if (product.getStockQuantity() == 0) {
             throw new APIExceptions("Product " + product.getProductName() + " is out of stock");
         }
 
-        if (product.getQuantity() < quantity) {
+        if (product.getStockQuantity() < quantity) {
             throw new APIExceptions("Product " + product.getProductName() + " is not available in sufficient quantity");
         }
 
@@ -198,7 +201,7 @@ public class CartServiceImpl implements CartService {
         List<CartItem> cartItems = cart.getCartItems();
         Stream<ProductDTO> productStream = cartItems.stream().map(item -> {
             ProductDTO map = modelMapper.map(item.getProduct(), ProductDTO.class);
-            map.setQuantity(item.getQuantity());
+            map.setStockQuantity(item.getQuantity());
             return map;
         });
 
