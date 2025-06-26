@@ -98,4 +98,13 @@ This project uses **Postman** for testing REST endpoints.
 3. Run the Spring Boot app from your IDE 
 4. Use Postman to interact with the API (There is file Java Spring Boot post man collection.json in the root directory)
  
- 
+ ---
+
+## 📄 Creating Jar file for Deployment
+1. Open terminal in the project root directory
+2. Run the command:
+   ```bash
+   ./mvnw package  # using Maven for building the project
+   ```
+3. The generated JAR file will be located in the `target` directory
+4. This JAR can be deployed on any server supporting Java for example AWS
