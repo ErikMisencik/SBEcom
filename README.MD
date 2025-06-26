@@ -108,3 +108,6 @@ This project uses **Postman** for testing REST endpoints.
    ```
 3. The generated JAR file will be located in the `target` directory
 4. This JAR can be deployed on any server supporting Java for example AWS
+
+ ---
+
